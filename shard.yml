@@ -1,0 +1,19 @@
+name: fast-ecs
+version: 0.1.0
+
+authors:
+  - Ernestas Monkevicius <ernestas.monkevicius@ucdconnect.ie>
+
+dependencies:
+  sparse-set:
+    github: ernest4/sparse-set
+    version: "~> 1.1"
+
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
+    version: ~> 0.9.33
+
+crystal: 1.0.0
+
+license: MIT
