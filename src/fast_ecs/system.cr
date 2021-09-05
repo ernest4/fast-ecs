@@ -1,10 +1,13 @@
 module Fast::ECS
   abstract class System
-    getter :engine
     delegate delta_time, to: @engine.not_nil!
 
     def add_engine(engine : Engine)
       @engine = engine
+    end
+
+    def engine
+      @engine.not_nil!
     end
 
     # init stuff, engine should run this when system right after system is added

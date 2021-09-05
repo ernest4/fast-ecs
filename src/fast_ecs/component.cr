@@ -1,3 +1,7 @@
+
+# TODO: suggestion was to use flyweight pattern for components to increase RAM efficiency?
+# https://refactoring.guru/design-patterns/flyweight
+
 module Fast::ECS
   # NOTE: custom components will extend this.
   # NOTE: NO METHODS ON COMPONENTS !!!

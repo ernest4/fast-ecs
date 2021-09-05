@@ -32,6 +32,17 @@ class TestyComponentB < Fast::ECS::Component
   end
 end
 
+module TestyComponentC
+  class C < Fast::ECS::Component
+    property :number
+
+    def initialize(id : Int32, number : Int32)
+      super(id)
+      @number = number
+    end
+  end
+end
+
 Spectator.describe Fast::ECS::Engine do
   mock TestySystem do
     # stub instance_method(some_number : Int32)
@@ -326,22 +337,24 @@ Spectator.describe Fast::ECS::Engine do
   describe "#query" do
     let(:testy_component_b1) { TestyComponentB.new(testy_component_a1.id, 123) }
     let(:testy_component_b2) { TestyComponentB.new(testy_component_a2.id, 123) }
+    let(:testy_component_cc1) { TestyComponentC::C.new(testy_component_a1.id, 123) }
 
     context "when there is at least one entity with requested components" do
       before_each do
         subject.add_component(testy_component_a1)
         subject.add_component(testy_component_b1)
+        subject.add_component(testy_component_cc1)
       end
 
       it "does finds those components" do
         components = [] of Array(Fast::ECS::Component)
 
-        subject.query(TestyComponentA, TestyComponentB) do |query_set|
-          compA, compB = query_set
-          components.push([compA, compB])
+        subject.query(TestyComponentA, TestyComponentB, TestyComponentC::C) do |query_set|
+          compA, compB, compCC = query_set
+          components.push([compA, compB, compCC])
         end
 
-        expect(components).to eq [[testy_component_a1, testy_component_b1]]
+        expect(components).to eq [[testy_component_a1, testy_component_b1, testy_component_cc1]]
       end
     end
 
